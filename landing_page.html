@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WeatherNow - Accurate Forecasts Anytime</title>
-    <link rel="stylesheet" href="landing_page.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeatherNow - Accurate Forecasts Anytime</title>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+  <link rel="stylesheet" href="landing_page.css" />
 </head>
 <body>
-    
-    <!-- Hero Section -->
-<div class="hero">
-    <!-- Video Background -->
-    <video autoplay muted loop playsinline id="bg-video">
-        <source src="images/dark_bg(2).mp4" type="video/mp4" />
-        Your browser does not support HTML5 video.
-    </video>
-
-    <!-- Dark overlay for text visibility -->
-    <div class="overlay"></div>
-
-    <div class="hero-content">
-        <h1>Unlimited Weather Updates, Anytime, Anywhere.</h1>
-        <p>Stay prepared with accurate forecasts. Check temperature, rainfall, wind speed & more.</p>
-        <form class="email-form" onsubmit="handleSubscribe(event)">
-            <input type="email" placeholder="Enter your email" required />
-            <button type="submit">Get Started</button>
-        </form>
+  <!-- Navbar -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-left">
+      <h3 class="logo">WeatherNow</h3>
     </div>
+    <div class="nav-right">
+  <a id="github-link" class="nav-btn" href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
 </div>
 
+  </nav>
 
-    <!-- Info Section
-    <section class="info">
-        <div class="info-text">
-            <h2>Track Weather on Any Device</h2>
-            <p>Available on mobile, desktop, smart TVs, and tablets. Stay informed wherever you go.</p>
-        </div>
-        <div class="info-image">
-            <img src="images/sunny.mp4" alt="Weather Dashboard" />
-        </div>
-    </section> -->
+  <!-- Hero Section -->
+  <main class="hero" id="hero">
+    <video autoplay muted loop playsinline id="bg-video" poster="images/bg-poster.jpg" aria-hidden="true">
+      <source id="bg-video-source" src="images/background_bg.mp4" type="video/mp4" />
+      Your browser does not support HTML5 video.
+    </video>
 
-    
+    <!-- <div class="overlay" aria-hidden="true"></div> -->
+
+    <div class="hero-content">
+      <h1>Unlimited Weather Updates, Anytime, Anywhere.</h1>
+      <p>Stay prepared with accurate forecasts. Check temperature, rainfall, wind speed &amp; more.</p>
+      <div class="email-form">
+  <a href="#" class="nav-btn about-btn">About Us</a>
+  <button type="button" class="cta-btn" id="get-started-btn">Get Started</button>
+</div>
+
+    </div>
+  </main>
+
+  <script src="landing_page.js"></script>
 </body>
 </html>

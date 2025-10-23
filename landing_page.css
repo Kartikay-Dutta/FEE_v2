@@ -1,145 +1,210 @@
-/* Reset */
+/* RESET */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.sr-only {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* THEME VARIABLES */
+:root {
+  --primary-color: #e50914;
+  --primary-color-hover: #c40612;
+  --text-color: #111;
+  --bg-overlay: rgba(255, 255, 255, 0.35);
+  --button-bg: rgba(0,0,0,0.06);
+  --button-border: rgba(0,0,0,0.12);
+  --button-hover-bg: rgba(0,0,0,0.12);
+}
+
+[data-theme='dark'] {
+  --text-color: #fff;
+  --bg-overlay: rgba(0, 0, 0, 0.45);
+  --button-bg: rgba(255,255,255,0.06);
+  --button-border: rgba(255,255,255,0.25);
+  --button-hover-bg: rgba(255, 255, 255, 0.12);
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: transparent;
+  z-index: 10;
+  color: var(--text-color);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+a.nav-btn,
+button.signin-btn,
+button.theme-toggle,
+button.cta-btn {
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  color: var(--text-color);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Hover */
+a.nav-btn:hover,
+button.signin-btn:hover,
+button.theme-toggle:hover {
+  transform: translateY(-2px);
+  background: var(--button-hover-bg);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+  border-color: rgba(0,0,0,0.18);
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--button-border);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 1.15rem;
+}
+
+/* HERO SECTION */
 .hero {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color);
+  text-align: center;
+  padding-top: 60px;
 }
 
-/* The background video itself */
 #bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
+  position: fixed; /* ensure it always covers the entire viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* full height of viewport */
+  object-fit: cover;
+  z-index: 0;
+  transition: opacity 0.6s ease;
 }
 
-/* Dark overlay to make text readable */
+/* Overlay for readability */
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.55);
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-overlay);
+  z-index: 1;
 }
 
-/* Text content */
+/* HERO CONTENT */
 .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 700px;
-    padding: 20px;
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  padding: 20px;
 }
 
 .hero-content h1 {
-    font-size: 2.8rem;
-    margin-bottom: 20px;
+  font-size: 2.6rem;
+  margin-bottom: 14px;
+  line-height: 1.05;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+  opacity: 0.95;
 }
 
-
-/* Email form */
+/* EMAIL FORM */
 .email-form {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .email-form input {
-    padding: 12px 15px;
-    border: none;
-    outline: none;
-    border-radius: 4px;
-    width: 250px;
-    font-size: 1rem;
+  padding: 12px 15px;
+  border: 1px solid rgba(255,255,255,0.12);
+  outline: none;
+  border-radius: 8px;
+  width: 260px;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.04);
+  color: var(--text-color);
 }
 
-.email-form button {
-    padding: 12px 20px;
-    background-color: #e50914;
-    border: none;
-    color: white;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
+.email-form input:focus {
+  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+  transform: translateY(-2px);
 }
 
-.email-form button:hover {
-    background-color: #f40612;
+/* CTA BUTTON */
+.cta-btn {
+  padding: 12px 20px;
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
 }
 
-/* Info Section */
-/* .info {
-    background-color: #000;
-    color: #fff;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 20px;
-    gap: 40px;
+.cta-btn:hover {
+  background-color: var(--primary-color-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.24);
 }
 
-.info-text {
-    max-width: 500px;
-}
-
-.info-text h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
-
-.info-text p {
-    font-size: 1.1rem;
-    color: #ccc;
-}
-
-.info-image img {
-    width: 400px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-} */
-#bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    transition: opacity 1s ease; /* smooth fade */
-}
-
-
-/* Responsive */
+/* RESPONSIVE */
 @media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    .info {
-        flex-direction: column;
-    }
+  .hero-content h1 {
+    font-size: 1.9rem;
+  }
+  .navbar {
+    padding: 10px 18px;
+  }
+  .nav-right {
+    gap: 8px;
+  }
+  .email-form input {
+    width: 100%;
+    max-width: 320px;
+  }
 }
