@@ -1,6 +1,3 @@
-// GitHub Repo Link
-const githubUrl = "https://github.com/Kartikay-Dutta/FEE_v2";
-
 // Video files for light/dark themes
 const themeVideos = {
   light: "images/background_bg.mp4", // day
@@ -11,10 +8,6 @@ const themeVideos = {
 const video = document.getElementById("bg-video");
 const videoSource = document.getElementById("bg-video-source");
 const themeToggle = document.getElementById("theme-toggle");
-const githubLink = document.getElementById("github-link");
-
-// Set GitHub link
-if (githubLink) githubLink.href = githubUrl;
 
 // Theme switch function
 function applyTheme(theme) {
@@ -41,16 +34,6 @@ themeToggle.addEventListener("click", () => {
   const next = current === "light" ? "dark" : "light";
   applyTheme(next);
 });
-
-// Subscribe form
-function handleSubscribe(e) {
-  e.preventDefault();
-  const emailInput = document.querySelector("#email");
-  if (emailInput && emailInput.value.trim()) {
-    alert("Thanks for subscribing! You'll get updates soon.");
-    emailInput.value = "";
-  }
-}
 
 // Accessibility fallback
 video.addEventListener("error", () => {
