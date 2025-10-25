@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WeatherNow Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <button class="menu-btn">☰</button>
+      <h1 class="logo">WeatherNow</h1>
+    </div>
+
+    <div class="nav-center">
+      <input type="text" placeholder="Search for your preferred city..." class="search-bar">
+    </div>
+
+    <div class="nav-right">
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider">
+          <span class="icon sun">☀️</span>
+          <span class="icon moon">🌙</span>
+        </span>
+      </label>
+    </div>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <main class="wrap">
+
+    <!-- LEFT: City + Time (large) -->
+    <section class="card city-time">
+      <div class="city-inner">
+        <h2 class="city">Athens</h2>
+        <div class="clock">09:03</div>
+        <div class="date">Thursday, 31 Aug</div>
+      </div>
+    </section>
+
+    <!-- RIGHT: Main Weather Info (big) -->
+    <section class="card weather-info">
+      <div class="weather-left">
+        <div class="temp-big">
+          <div class="temp-val">24<span class="deg">°C</span></div>
+          <div class="feels">Feels like: <strong>22°C</strong></div>
+
+          <div class="sun-times">
+            <div class="sun-line">
+              <span class="sun-icon">↑</span>
+              <div>
+                <div class="small-label">Sunrise</div>
+                <div class="small-val">06:37 AM</div>
+              </div>
+            </div>
+            <div class="sun-line">
+              <span class="sun-icon">↓</span>
+              <div>
+                <div class="small-label">Sunset</div>
+                <div class="small-val">20:37 PM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="weather-center">
+        <img src="images/sun.png" alt="sun" class="big-icon">
+        <div class="condition">Sunny</div>
+      </div>
+
+      <div class="weather-right">
+        <div class="stat">
+          <img src="images/humidity.png" alt="humidity" class="stat-icon">
+          <div>
+            <div class="small-label">Humidity</div>
+            <div class="small-val">41%</div>
+          </div>
+        </div>
+
+        <div class="stat">
+          <img src="images/wind.png" alt="wind" class="stat-icon">
+          <div>
+            <div class="small-label">Wind Speed</div>
+            <div class="small-val">2 km/h</div>
+          </div>
+        </div>
+
+        <div class="stat">
+          <img src="images/pressure.png" alt="pressure" class="stat-icon">
+          <div>
+            <div class="small-label">Pressure</div>
+            <div class="small-val">997 hPa</div>
+          </div>
+        </div>
+
+        <div class="stat">
+          <img src="images/uv.png" alt="uv" class="stat-icon">
+          <div>
+            <div class="small-label">UV</div>
+            <div class="small-val">8</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM LEFT: 5-Day Forecast -->
+    <section class="card forecast-5days">
+      <h3>5 Days Forecast:</h3>
+      <ul>
+        <li><img src="images/sun.png" alt="" class="li-icon"> <span class="li-temp">20°C</span> <span class="li-date">Fri, 1 Sep</span></li>
+        <li><img src="images/cloudy.png" alt="" class="li-icon"> <span class="li-temp">22°C</span> <span class="li-date">Sat, 2 Sep</span></li>
+        <li><img src="images/sun.png" alt="" class="li-icon"> <span class="li-temp">27°C</span> <span class="li-date">Sun, 3 Sep</span></li>
+        <li><img src="images/rainy.png" alt="" class="li-icon"> <span class="li-temp">18°C</span> <span class="li-date">Mon, 4 Sep</span></li>
+        <li><img src="images/cloud.png" alt="" class="li-icon"> <span class="li-temp">16°C</span> <span class="li-date">Tue, 5 Sep</span></li>
+      </ul>
+    </section>
+
+    <!-- BOTTOM RIGHT: Hourly Forecast (wide) -->
+    <section class="card forecast-hourly">
+      <h3>Hourly Forecast:</h3>
+      <div class="hours">
+        <div class="hour-pill">
+          <div class="pill-time">12:00</div>
+          <img src="images/sun.png" alt="" class="pill-icon">
+          <div class="pill-temp">26°C</div>
+          <div class="pill-wind">3 km/h</div>
+        </div>
+
+        <div class="hour-pill">
+          <div class="pill-time">15:00</div>
+          <img src="images/sun.png" alt="" class="pill-icon">
+          <div class="pill-temp">27°C</div>
+          <div class="pill-wind">2 km/h</div>
+        </div>
+
+        <div class="hour-pill">
+          <div class="pill-time">18:00</div>
+          <img src="images/cloudy.png" alt="" class="pill-icon">
+          <div class="pill-temp">27°C</div>
+          <div class="pill-wind">2 km/h</div>
+        </div>
+
+        <div class="hour-pill">
+          <div class="pill-time">21:00</div>
+          <img src="images/cloud.png" alt="" class="pill-icon">
+          <div class="pill-temp">25°C</div>
+          <div class="pill-wind">3 km/h</div>
+        </div>
+
+        <div class="hour-pill">
+          <div class="pill-time">00:00</div>
+          <img src="images/moon.png" alt="" class="pill-icon">
+          <div class="pill-temp">22°C</div>
+          <div class="pill-wind">3 km/h</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
