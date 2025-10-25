@@ -64,6 +64,6 @@ const getStartedBtn = document.getElementById("get-started-btn");
 if (getStartedBtn) {
   getStartedBtn.addEventListener("click", () => {
     // TODO: Replace with your sign-in / sign-up page URL
-    window.location.href = "signin.html";
+    window.location.href = "signin_page.html";
   });
 }
