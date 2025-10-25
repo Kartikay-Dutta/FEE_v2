@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WeatherNow - Sign In / Sign Up</title>
+   <link rel="icon" type="image/x-icon" href="/images/favicon.png">
   <link rel="stylesheet" href="signin_page.css" />
 </head>
 <body>
@@ -80,6 +81,36 @@
         toggleIcon.src = "images/sun.png"; // sun in light mode
       }
     });
+    // Redirect after sign-in
+const loginForm = document.getElementById("loginForm");
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault(); // prevent form from refreshing page
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  // Example check (replace with real authentication)
+  if(email && password.length >= 8){
+    window.location.href = "main.html"; // redirect to main page
+  } else {
+    alert("Invalid email or password");
+  }
+});
+
+// Redirect after sign-up
+const signupForm = document.getElementById("signupForm");
+signupForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const username = document.getElementById("username").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+
+  if(username && email && password.length >= 8 && password === confirmPassword){
+    window.location.href = "main.html"; // redirect to main page
+  } else {
+    alert("Please fill all fields correctly or passwords do not match");
+  }
+});
   </script>
 </body>
 </html>
