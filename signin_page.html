@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WeatherNow - Sign In / Sign Up</title>
+  <link rel="stylesheet" href="signin_page.css" />
+</head>
+<body>
+  <div class="theme-toggle" id="themeToggle">
+    <div class="toggle-icon" id="toggleIcon"></div>
+  </div>
+
+  <div class="flip-container">
+    <div class="card" id="flipCard">
+
+      <!-- FRONT: SIGN IN -->
+      <div class="form-container front">
+        <h2>Sign In</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required minlength="8" />
+          </div>
+          <button type="submit" class="login-btn">Sign In</button>
+        </form>
+        <p class="switch-text">Don't have an account? <a id="showSignup">Sign up</a></p>
+      </div>
+
+      <!-- BACK: SIGN UP -->
+      <div class="form-container back">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username" required />
+          </div>
+          <div class="form-group">
+            <label for="signupEmail">Email</label>
+            <input type="email" id="signupEmail" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label for="signupPassword">Password</label>
+            <input type="password" id="signupPassword" placeholder="Enter password" required minlength="8" />
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm password" required minlength="8" />
+          </div>
+          <button type="submit" class="signup-btn">Create Account</button>
+        </form>
+        <p class="switch-text">Already have an account? <a id="showSignin">Sign in</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const flipCard = document.getElementById("flipCard");
+    const showSignup = document.getElementById("showSignup");
+    const showSignin = document.getElementById("showSignin");
+    const themeToggle = document.getElementById("themeToggle");
+    const toggleIcon = document.getElementById("toggleIcon");
+
+    showSignup.addEventListener("click", () => flipCard.classList.add("flipped"));
+    showSignin.addEventListener("click", () => flipCard.classList.remove("flipped"));
+
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      toggleIcon.classList.toggle("dark");
+    });
+  </script>
+</body>
+</html>

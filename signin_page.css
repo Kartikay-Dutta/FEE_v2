@@ -1,0 +1,197 @@
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #dce2ff, #f0f0f0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  transition: background 0.5s ease, color 0.5s ease;
+  color: #222;
+}
+
+/* ---------- Flip Container ---------- */
+.flip-container {
+  perspective: 1000px;
+}
+
+.card {
+  width: 380px;
+  height: 440px;
+  position: relative;
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* ---------- Form Container ---------- */
+.form-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  box-sizing: border-box;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: inherit;
+}
+
+/* ---------- Form Elements ---------- */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: inherit;
+  font-size: 0.9rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  font-size: 1rem;
+  transition: 0.3s;
+  color: #000;
+}
+
+input:focus {
+  outline: none;
+  border-color: #777;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- Buttons ---------- */
+.login-btn,
+.signup-btn {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 0.8rem;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+  background-color: #555;
+  transform: translateY(-2px);
+}
+
+/* ---------- Switch Text ---------- */
+.switch-text {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.switch-text a {
+  color: #0077ff;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Back Side (Sign Up) ---------- */
+.back {
+  transform: rotateY(180deg);
+}
+
+/* ---------- Theme Toggle ---------- */
+.theme-toggle {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 60px;
+  height: 30px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #f9d71c, #ffb347);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.4s ease;
+  box-shadow: 0 4px 10px rgba(136, 135, 135, 0.15);
+}
+
+.toggle-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  margin-left: 4px;
+  transition: all 0.4s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.toggle-icon.dark {
+  margin-left: 32px;
+  background: #2c2c2c;
+}
+
+/* ---------- Dark Mode ---------- */
+body.dark-mode {
+  background: linear-gradient(135deg, #0e0e10, #2a2a2a);
+  color: #f1f1f1;
+}
+
+body.dark-mode .form-container {
+  background: #1c1c1e;
+  color: #f1f1f1;
+}
+
+body.dark-mode input {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #f1f1f1;
+}
+
+body.dark-mode input:focus {
+  border-color: #777;
+}
+
+body.dark-mode .login-btn,
+body.dark-mode .signup-btn {
+  background-color: #f1f1f1;
+  color: #111;
+}
+
+body.dark-mode .login-btn:hover,
+body.dark-mode .signup-btn:hover {
+  background-color: #ddd;
+}
+
+body.dark-mode .switch-text a {
+  color: #66aaff;
+}
+
+body.dark-mode .theme-toggle {
+  background: linear-gradient(135deg, #4a4a4a, #6b6b6b); /* lighter gray gradient */
+}
+
