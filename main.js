@@ -129,3 +129,12 @@ document.getElementById("mode-toggle").addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
 });
 
+// API KEY
+const apiKey = "2ba7dd79b4bde9f946abab213a551ac9";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=chandigarh";
+
+async function checkWeather() {
+  const reponse = await fetch(apiUrl + `&appid=${apiKey}`);
+  var data = await response.json();
+  console.log(data);
+}

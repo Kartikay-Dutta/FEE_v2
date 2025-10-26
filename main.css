@@ -766,6 +766,7 @@ body.light-mode .forecast-5days li {
 	padding:18px;
 	}
 }
+
 @media (max-width: 540px){
 	.search-bar{
 	width:90%;
