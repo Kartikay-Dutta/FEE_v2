@@ -40,46 +40,7 @@ const favoritesModal = document.getElementById('favoritesModal');
 const favoritesListEl = document.getElementById('favoritesList');
 const closeFavorites = document.getElementById('closeFavorites');
 
-// open favorites modal (simple example - reads from localStorage)
-favoritesBtn.addEventListener('click', () => {
-  closeMenu();
-  const data = JSON.parse(localStorage.getItem('wn_favorites') || '[]');
-  if (!data.length) favoritesListEl.innerHTML = "<p style='color:#ddd;margin:6px 0;'>No favorites yet.</p>";
-  else {
-    favoritesListEl.innerHTML = '<ul style="padding-left:16px;margin:6px 0;">' +
-      data.map(d => `<li style="padding:6px 0;">${d}</li>`).join('') +
-      '</ul>';
-  }
-  favoritesModal.classList.add('show');
-  favoritesModal.setAttribute('aria-hidden', 'false');
-});
 
-// history simple demo
-historyBtn.addEventListener('click', () => {
-  closeMenu();
-  alert('History feature placeholder — implement with your API / local logs.');
-});
-
-// change user simple demo
-changeUserBtn.addEventListener('click', () => {
-  closeMenu();
-  const newUser = prompt('Enter username to switch to:');
-  if (newUser) alert('Switched to: ' + newUser + ' (demo only)');
-});
-
-// close favorites
-closeFavorites.addEventListener('click', () => {
-  favoritesModal.classList.remove('show');
-  favoritesModal.setAttribute('aria-hidden', 'true');
-});
-
-// close modal on outside click
-favoritesModal.addEventListener('click', (e) => {
-  if (e.target === favoritesModal) {
-    favoritesModal.classList.remove('show');
-    favoritesModal.setAttribute('aria-hidden', 'true');
-  }
-});
 
 // === Theme Toggle Functionality ===
 const themeToggle = document.getElementById('theme-toggle');
@@ -125,16 +86,52 @@ menuBtn.addEventListener('keydown', (e) => {
     if (isOpen) closeMenu(); else openMenu();
   }
 });
-document.getElementById("mode-toggle").addEventListener("click", () => {
-  document.body.classList.toggle("light-mode");
-});
+
 
 // API KEY
 const apiKey = "2ba7dd79b4bde9f946abab213a551ac9";
-const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=chandigarh";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+const searchBox = document.querySelector(".nav-center input");
 
-async function checkWeather() {
-  const reponse = await fetch(apiUrl + `&appid=${apiKey}`);
+
+async function checkWeather(city) {
+  const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
   var data = await response.json();
   console.log(data);
+  document.querySelector(".city").innerHTML = data.name;
+  document.querySelector(".temp-val").innerHTML = Math.round(data.main.temp) + "°C";
+  document.querySelector(".feels").innerHTML = "Feels like " +Math.round(data.main.feels_like); "°C";
+  document.getElementById("humidity").innerHTML = data.main.humidity + "%";
+  const windSpeedKmh = Math.round(data.wind.speed * 3.6);
+  document.getElementById("wind").innerHTML = windSpeedKmh + " km/h";
+  const visibilityKm = (data.visibility / 1000); 
+  document.getElementById("visibility").innerHTML = visibilityKm + " km";
+  document.getElementById("pressure").innerHTML = data.main.pressure + " hPa";
+
+  const sunriseTimestamp = data.sys.sunrise * 1000; 
+  const sunriseTime = new Date(sunriseTimestamp).toLocaleTimeString('en-US', {
+        
+        hour12: false,
+        minute: '2-digit',
+        hour: '2-digit'
+    });
+    document.getElementById("sunrise").innerHTML = sunriseTime;
+    const sunsetTimestamp = data.sys.sunset * 1000; 
+    const sunsetTime = new Date(sunsetTimestamp).toLocaleTimeString('en-US', {
+        hour12: false,
+        minute: '2-digit',
+        hour: '2-digit' 
+    });
+    document.getElementById("sunset").innerHTML = sunsetTime;
 }
+
+
+
+searchBox.addEventListener("keydown", (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault(); 
+        checkWeather(searchBox.value);
+    }
+});
+
+
