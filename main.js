@@ -125,3 +125,7 @@ menuBtn.addEventListener('keydown', (e) => {
     if (isOpen) closeMenu(); else openMenu();
   }
 });
+document.getElementById("mode-toggle").addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+});
+

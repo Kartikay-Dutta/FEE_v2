@@ -55,69 +55,72 @@
 
     <!-- RIGHT: Main Weather Info (big) -->
     <section class="card weather-info" aria-label="Current weather">
-      <div class="weather-left">
-        <div class="temp-big">
-          <div class="temp-val"><span id="tempVal">24</span><span class="deg">°C</span></div>
-          <div class="feels">Feels like: <strong id="feelsLike">22°C</strong></div>
+  <!-- LEFT: big temp + feels + vertical sunrise/sunset -->
+  <div class="weather-left">
+    <div class="temp-big">
+      <div class="temp-val"><span id="tempVal">24</span><span class="deg">°C</span></div>
+      <div class="feels">Feels like: <strong id="feelsLike">22°C</strong></div>
 
-          <div class="sun-times">
-            <div class="sun-line">
-              <img src="images/sunrise.png" alt="sunrise" class="stat-icon">
-              <div>
-                <div class="small-label">Sunrise</div>
-                <div class="small-val" id="sunrise">06:37 AM</div>
-              </div>
-            </div>
-            <div class="sun-line">
-              <img src="images/sunset.png" alt="sunset" class="stat-icon">
-              <div>
-                <div class="small-label">Sunset</div>
-                <div class="small-val" id="sunset">20:37 PM</div>
-              </div>
-            </div>
+      <div class="sun-times">
+        <div class="sun-line">
+          <img src="images/sunrise.png" alt="sunrise" class="stat-icon">
+          <div class="sun-text">
+            <div class="small-label">Sunrise</div>
+            <div class="small-val" id="sunrise">06:37 AM</div>
+          </div>
+        </div>
+        <div class="sun-line">
+          <img src="images/sunset.png" alt="sunset" class="stat-icon">
+          <div class="sun-text">
+            <div class="small-label">Sunset</div>
+            <div class="small-val" id="sunset">20:37 PM</div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="weather-center">
-        <img src="images/sun.png" alt="sun" class="big-icon" id="bigIcon"> 
-        <div class="condition" id="condition">Sunny</div>
+  <!-- CENTER: big icon + label -->
+  <div class="weather-center">
+    <img src="images/sun.png" alt="sun" class="big-icon" id="bigIcon">
+    <div class="condition" id="condition">Sunny</div>
+  </div>
+
+  <!-- RIGHT: vertical stats (icon + label + value) -->
+  <div class="weather-right">
+    <div class="stat stat-row">
+      <img src="images/humidity.png" alt="humidity" class="stat-icon">
+      <div class="stat-text">
+        <div class="small-label">Humidity</div>
+        <div class="small-val" id="humidity">41%</div>
       </div>
+    </div>
 
-      <div class="weather-right">
-        <div class="stat">
-          <img src="images/humidity.png" alt="humidity" class="stat-icon">
-          <div>
-            <div class="small-label">Humidity</div>
-            <div class="small-val" id="humidity">41%</div>
-          </div>
-        </div>
-
-        <div class="stat">
-          <img src="images/wind.png" alt="wind" class="stat-icon">
-          <div>
-            <div class="small-label">Wind Speed</div>
-            <div class="small-val" id="wind">2 km/h</div>
-          </div>
-        </div>
-
-        <div class="stat">
-          <img src="images/pressure.png" alt="pressure" class="stat-icon">
-          <div>
-            <div class="small-label">Pressure</div>
-            <div class="small-val" id="pressure">997 hPa</div>
-          </div>
-        </div>
-
-        <div class="stat">
-          <img src="images/uv.png" alt="uv" class="stat-icon">
-          <div>
-            <div class="small-label">UV</div>
-            <div class="small-val" id="uv">8</div>
-          </div>
-        </div>
+    <div class="stat stat-row">
+      <img src="images/wind.png" alt="wind" class="stat-icon">
+      <div class="stat-text">
+        <div class="small-label">Wind Speed</div>
+        <div class="small-val" id="wind">2 km/h</div>
       </div>
-    </section>
+    </div>
+
+    <div class="stat stat-row">
+      <img src="images/pressure.png" alt="pressure" class="stat-icon">
+      <div class="stat-text">
+        <div class="small-label">Pressure</div>
+        <div class="small-val" id="pressure">997 hPa</div>
+      </div>
+    </div>
+
+    <div class="stat stat-row">
+      <img src="images/uv.png" alt="uv" class="stat-icon">
+      <div class="stat-text">
+        <div class="small-label">UV</div>
+        <div class="small-val" id="uv">8</div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- BOTTOM LEFT: 5-Day Forecast -->
     <section class="card forecast-5days">
@@ -186,5 +189,6 @@
   </div>
 
   <script src="main.js"></script>
+  
 </body>
 </html>

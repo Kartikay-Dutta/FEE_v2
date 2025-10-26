@@ -1,13 +1,18 @@
-:root{
-  --bg1: #737375;
-  --panel: rgba(255,255,255,0.06);
-  --card: rgba(255, 255, 255, 0.128);
-  --muted: rgba(255,255,255,0.75);
-  --accent: #7be04b;
-  --shadow: rgba(0,0,0,0.55);
-  --rounded: 18px;
-  --gap: 24px;
-  --glass-border: rgba(255,255,255,0.04);
+:root {
+  --bg-color: #52504b;
+  --card-color: #52504b;
+  --text-color: #ffffff;
+  --accent-color: #00aaff;
+  --icon-color: #ffffff;
+}
+
+/* Light Mode Variables */
+.light-mode {
+  --bg-color: #f4f4f4;
+  --card-color: #ffffff;
+  --text-color: #222222;
+  --accent-color: #0077cc;
+  --icon-color: #0077cc;
 }
 
 /* Base */
@@ -190,40 +195,141 @@ body {
 .clock{ font-size:72px; font-weight:800; margin-bottom:8px; letter-spacing:2px; }
 .date{ font-size:13px; color:var(--muted); }
 
-/* WEATHER INFO (RIGHT) */
-.weather-info{
-  display:grid;
-  grid-template-columns: 1fr 140px 200px;
-  gap:22px;
-  align-items:center;
-  padding: 28px;
-  min-height:100%;
-}
-
-/* Left column temperature block */
-.temp-val{ font-size:44px; font-weight:800; display:flex; align-items:baseline; gap:8px; }
-.temp-val .deg{ font-size:18px; opacity:0.95; margin-left:6px; }
-.feels{ margin-top:8px; color:var(--muted); }
-
-/* sun icon and center block */
 .big-icon {
-  width: 110px;
-  height: 110px;
+  width: 90px;         
+  height: 90px;
   object-fit: contain;
-  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.6));
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,0.45));
   display: block;
   margin: 0 auto;
 }
-
 .condition {
-  margin-top: 14px;
+  margin-top: 8px;
   font-weight: 700;
   text-align: center;
 }
+
+
+.weather-info {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.2fr; /* balanced columns */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 20px;
+  gap: 20px;
+}
+
+/* Left column: temperature + sunrise/sunset */
+.weather-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.temp-big {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.sun-times {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.sun-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.sun-line img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.55));
+}
+
+/* Center: big sun icon */
+.weather-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Right: 2x2 grid of stats */
+.weather-right {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 40px;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.55));
+}
+
+.small-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.small-val {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
 /* right stats */
-.weather-right{ display:flex; flex-direction:column; gap:14px; align-items:flex-start; }
-.stat{ display:flex; gap:12px; align-items:center; }
-.stat-icon{ width:36px; height:36px; object-fit:contain; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.55)); }
+.weather-right {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 20px;
+  align-items: center;
+  justify-items: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 4px;
+}
+.small-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.small-val {
+  font-weight: 600;
+}
+
 
 /* 5-day list */
 /* 5-day list */
@@ -306,6 +412,7 @@ h1, h2, h3 {
 p, span {
     color: #d1d1d1;
 }
+
 /* RESPONSIVE */
 @media (max-width: 1100px){
   .wrap{ width: calc(100% - 40px); grid-template-columns: 1fr; grid-template-rows: auto; }
