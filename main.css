@@ -333,6 +333,7 @@ body {
 .forecast-5days h3 {
   margin: 0 0 8px 0;
   font-size: 30px; 
+  text-align: center;
 }
 
 .forecast-5days ul {
@@ -340,7 +341,9 @@ body {
   padding: 0;
   margin: 6px 0 0 0;
   display: flex;
+   align-items: center;
   flex-direction: column;
+  text-align: center;
   gap: 6px; /* smaller vertical spacing */
 }
 .current-weather,
@@ -349,9 +352,12 @@ body {
 }
 
 .forecast-5days li {
+   justify-content: center;
+  text-align: center;
+  gap: 120px;
   display: flex;
   align-items: center;
-  gap: 200px; /* smaller gap between icon & text */
+  /* gap: 200px;  */
   padding: 6px 8px; /* less padding */
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.03);
@@ -409,6 +415,57 @@ h1, h2, h3 {
 p, span {
     color: #d1d1d1;
 }
+/* Enhance font & icon sizes inside cards without enlarging card dimensions */
+.card {
+  font-size: 1.05rem; /* Slightly larger text */
+}
+
+.weather-info .temp-big .temp-val {
+  font-size: 3.2rem; /* Larger main temperature */
+}
+
+.weather-info .feels {
+  font-size: 1rem;
+}
+
+.weather-info .condition {
+  font-size: 1.2rem;
+}
+
+/* Increase sunrise/sunset and stats icons without stretching cards */
+.stat-icon,
+.sun-line img,
+.big-icon {
+  transform: scale(1.2); /* Make icons larger visually */
+}
+
+/* Adjust forecast list and hourly section */
+.forecast-5days li {
+  font-size: 1rem;
+}
+
+.forecast-5days li img {
+  transform: scale(1.2);
+}
+
+.hour-pill .pill-time {
+  font-size: 1rem;
+}
+.hour-pill .pill-temp {
+  font-size: 1rem;
+}
+.hour-pill .pill-wind {
+  font-size: 0.9rem;
+}
+.hour-pill .pill-icon {
+  transform: scale(1.2);
+}
+
+/* Prevent card size from changing */
+.card * {
+  line-height: 1.1; /* Tighten spacing */
+}
+
 
 /* RESPONSIVE */
 @media (max-width: 1100px){
