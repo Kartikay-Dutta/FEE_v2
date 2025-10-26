@@ -142,7 +142,6 @@ body {
   padding: 0 10px 40px 10px;
 }
 
-/* Make cards fill height better */
 .card {
   background: linear-gradient(180deg, rgba(145, 139, 139, 0.187), rgba(0,0,0,0.35));
   border-radius: 18px;
@@ -159,12 +158,11 @@ body {
   align-self: start;
 }
 
-/* Tighten spacing below the top weather info */
 .weather-info {
   margin-bottom: 0;
 }
 
-/* Slightly smaller gap between hourly and 5-day sections */
+
 .forecast-hourly {
   margin-top: 0;
 }
@@ -332,10 +330,9 @@ body {
 
 
 /* 5-day list */
-/* 5-day list */
 .forecast-5days h3 {
   margin: 0 0 8px 0;
-  font-size: 1rem; /* slightly smaller heading */
+  font-size: 30px; 
 }
 
 .forecast-5days ul {
@@ -354,11 +351,11 @@ body {
 .forecast-5days li {
   display: flex;
   align-items: center;
-  gap: 8px; /* smaller gap between icon & text */
+  gap: 200px; /* smaller gap between icon & text */
   padding: 6px 8px; /* less padding */
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.03);
-  font-size: 0.85rem; /* make text smaller */
+  font-size: 14px; 
 }
 
 /* Smaller weather icons */
@@ -371,7 +368,7 @@ body {
 
 /* HOURLY (bottom-right) */
 .forecast-hourly { grid-column: 2 / 3; grid-row: 2 / 3; padding:22px; }
-.forecast-hourly h3{ margin:0 0 14px 0; font-size:18px; text-align:center; }
+.forecast-hourly h3{ margin:0 0 14px 0; font-size:30px; text-align:center; }
 .hours{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
@@ -392,7 +389,7 @@ body {
   gap:8px;
   min-height:110px;
 }
-.pill-time{ font-weight:700; font-size:13px; }
+.pill-time{ font-weight:700; font-size:20px; }
 .pill-icon{ width:46px; height:46px; object-fit:contain; margin:0 auto; }
 .pill-temp{ font-weight:700; font-size:16px; }
 .pill-wind{ color:var(--muted); font-size:13px; }
