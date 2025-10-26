@@ -81,26 +81,26 @@ favoritesModal.addEventListener('click', (e) => {
   }
 });
 
-// --- Dark mode toggle (kept as original UI behaviour) ---
-const darkModeToggle = document.getElementById('darkModeToggle');
-const root = document.documentElement;
-const savedTheme = localStorage.getItem('wn_theme') || 'dark'; // keep dark by default to match look
+// === Theme Toggle Functionality ===
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
 
-function applyTheme(theme) {
-  if (theme === 'dark') {
-    root.setAttribute('data-theme', 'dark');
-    darkModeToggle.checked = true;
-  } else {
-    root.removeAttribute('data-theme');
-    darkModeToggle.checked = false;
-  }
-  localStorage.setItem('wn_theme', theme);
+// Load saved theme if available
+if (localStorage.getItem('theme') === 'light') {
+  body.classList.add('light-mode');
+  themeToggle.textContent = '🌙 Dark Mode';
 }
-applyTheme(savedTheme);
 
-darkModeToggle.addEventListener('change', () => {
-  const next = darkModeToggle.checked ? 'dark' : 'light';
-  applyTheme(next);
+themeToggle.addEventListener('click', () => {
+  body.classList.toggle('light-mode');
+
+  if (body.classList.contains('light-mode')) {
+    themeToggle.textContent = '🌙 Dark Mode';
+    localStorage.setItem('theme', 'light');
+  } else {
+    themeToggle.textContent = '☀️ Light Mode';
+    localStorage.setItem('theme', 'dark');
+  }
 });
 
 // --- Simple clock & date sample to look live (updates every second) ---
