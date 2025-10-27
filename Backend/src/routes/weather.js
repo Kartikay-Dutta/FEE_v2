@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const city = req.query.city;
-  if (!city) return res.status(400).json({ error: "City name required" });
+  if (!city) return res.status(400).json({ error: "Please enter a city name" });
   try {
     const apiKey = process.env.WEATHER_API_KEY;
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&APPID=${apiKey}&units=metric`;
@@ -13,10 +13,10 @@ router.get("/", async (req, res) => {
     res.json(response.data);
   } catch (err) {
     if (err.response && err.response.status === 404) {
-      res.status(404).json({ error: "City not found" });
+      res.status(404).json({ error: "Invalid city name. Please check the spelling and try again." });
     } else {
       console.error("Weather API error:", err.message);
-      res.status(500).json({ error: "Weather fetch failed" });
+      res.status(500).json({ error: "Unable to fetch weather data. Please try again later." });
     }
   }
 });
