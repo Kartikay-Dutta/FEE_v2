@@ -116,32 +116,71 @@
     margin: 0 auto;
 }
 
+/* favorite.css file */
 .favorites-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     padding: 1rem;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
+
+/* favorite.css — add these rules (replace older .favorite-card if present) */
 .favorite-card {
+    width: calc(33.333% - 1rem);    /* three cards per row on desktop */
+    min-width: 240px;               /* prevents collapsing too small */
+    max-width: 360px;
+    box-sizing: border-box;
     background: var(--bg-light);
-    border-radius: 15px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px var(--shadow-color);
-    transition: all 0.3s ease;
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 6px 12px var(--shadow-color);
+    transition: transform .18s ease, box-shadow .18s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
 }
+
+/* make card actions row stay at bottom */
+.favorite-card .favorite-actions {
+    margin-top: auto;
+}
+
+/* responsive breakpoints */
+@media (max-width: 1024px) {
+    .favorite-card { width: calc(50% - 1rem); }
+}
+@media (max-width: 520px) {
+    .favorite-card { width: 100%; }
+}
+
 
 .favorite-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 12px var(--shadow-color);
 }
 
+/* favorite.css — add these */
+.favorite-weather-icon,
+.favorite-card img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    transform: none !important;       /* override global transforms */
+    filter: none !important;
+    margin-left: 8px;
+    margin-right: 0;
+}
 .favorite-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1rem;
+    align-items: center;
+    gap: 8px;
 }
+
 
 .favorite-city {
     font-size: 1.5rem;
@@ -327,3 +366,19 @@
         right: 1rem;
     }
 }
+
+/* favorite.css — append: defensive overrides to stop globals leaking in */
+.favorites-grid img,
+.favorite-card img,
+.favorite-card .li-icon,
+.favorite-card .favorite-weather-icon {
+    max-width: 100%;
+    height: auto;
+    transform: none !important;
+    filter: none !important;
+    pointer-events: auto;
+}
+
+/* favorite.css — append */
+.favorites-container { position: relative; z-index: 10; }
+.fab, .modal { z-index: 40; } /* keep FAB/modal above cards */
