@@ -283,6 +283,17 @@ body.light-mode .search-bar:focus {
 	text-align:center;
 	width:100%;
 }
+
+.activity-suggestion {
+	margin-top: 8px;
+	font-style: italic;
+	color: rgba(255,255,255,0.85);
+	font-size: 0.95rem;
+	max-width: 320px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
 .city{
 	font-size:50px;
 	margin:0 0 10px 0;
@@ -446,14 +457,14 @@ body.light-mode .search-bar:focus {
 
 .forecast-day {
     display: grid;
-    grid-template-columns: 100px 40px 80px 1fr;
+    grid-template-columns: minmax(80px, 120px) 48px minmax(60px, 90px) 1fr;
     align-items: center;
-    gap: 15px;
-    padding: 15px;
+    gap: 12px;
+    padding: 12px 14px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.05);
-    transition: all 0.2s ease;
-    min-height: 60px;
+    transition: background 0.2s ease, transform 0.12s ease;
+    min-height: 56px;
 }
 
 .forecast-day:hover {
@@ -465,6 +476,9 @@ body.light-mode .search-bar:focus {
     font-weight: 600;
     font-size: 14px;
     color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .forecast-icon {
@@ -478,6 +492,7 @@ body.light-mode .search-bar:focus {
     font-weight: bold;
     font-size: 16px;
     color: #fff;
+    white-space: nowrap;
 }
 
 .forecast-desc {
@@ -485,6 +500,19 @@ body.light-mode .search-bar:focus {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.9);
     text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* fallback for very narrow widths - allow desc to wrap */
+@media (max-width: 420px) {
+    .forecast-day {
+        grid-template-columns: 70px 40px 60px 1fr;
+    }
+    .forecast-desc {
+        white-space: normal;
+    }
 }
 
 /* Light mode overrides */

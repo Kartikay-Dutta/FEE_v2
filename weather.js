@@ -136,6 +136,19 @@ class WeatherDataManager {
         // Update date and time
         this.updateDateTime();
 
+        // Update small activity suggestion under the city/time card
+        try {
+            const suggestionEl = document.getElementById('activitySuggestion');
+            if (suggestionEl) {
+                const suggestion = this.getActivitySuggestion(data.condition, data.temp);
+                // Put the suggestion in quotes and italic
+                suggestionEl.innerHTML = `&ldquo;<em>${suggestion}</em>&rdquo;`;
+            }
+        } catch (e) {
+            // Non-fatal — don't break UI if suggestion fails
+            console.warn('Could not set activity suggestion', e);
+        }
+
         // Check if this city is in favorites
         if (window.favoritesManager) {
             favoritesManager.updateFavoriteIcon(data.city);
@@ -243,6 +256,79 @@ class WeatherDataManager {
             '50n': 'mist.png'
         };
         return iconMapping[code] || 'cloudy.png';
+    }
+
+    // Return a short 3-sentence activity suggestion string based on condition and temp
+    getActivitySuggestion(condition, temp) {
+        // normalize
+        const cond = (condition || '').toLowerCase();
+        const t = Number(temp);
+
+        const suggestions = {
+            clear: [
+                "A clear day — perfect for a picnic in the park.",
+                "Great time for a jog or bike ride; enjoy the sunshine.",
+                "Bring sunglasses and a camera for bright, scenic shots."
+            ],
+            clouds: [
+                "Cloudy skies — a calm walk will be pleasant.",
+                "Good day for a coffee outdoors under light cloud cover.",
+                "Light layering is ideal; a sweater should do."
+            ],
+            rain: [
+                "Rainy weather — a cozy day for indoor reading or a cafe visit.",
+                "Carry an umbrella if you need to step out; puddles likely.",
+                "Perfect excuse to watch a movie or try a new recipe at home."
+            ],
+            drizzle: [
+                "Drizzle outside — a short walk with a light jacket is fine.",
+                "Great day for a museum or indoor stroll.",
+                "Keep shoes dry and plan indoor activities if possible."
+            ],
+            thunderstorm: [
+                "Thunderstorms — best to stay indoors and stay safe.",
+                "Avoid outdoor activities and unplug sensitive electronics.",
+                "Check local alerts and reschedule any open-air plans."
+            ],
+            snow: [
+                "Snowy conditions — great for making snowmen or sledding.",
+                "Bundle up warmly; layers and a good coat are recommended.",
+                "If travelling, allow extra time and drive carefully."
+            ],
+            mist: [
+                "Misty morning — a peaceful time for a short walk.",
+                "Drive carefully as visibility may be reduced.",
+                "Warm drink inside sounds lovely while the mist clears."
+            ],
+            default: [
+                "Nice day to be mindful — pick an activity you love.",
+                "Check the forecast details and plan accordingly.",
+                "Layer up if temperatures are variable throughout the day."
+            ]
+        };
+
+        // pick base group by condition keywords
+        let key = 'default';
+        if (cond.includes('clear') || cond.includes('sun')) key = 'clear';
+        else if (cond.includes('cloud')) key = 'clouds';
+        else if (cond.includes('rain')) key = 'rain';
+        else if (cond.includes('drizzle')) key = 'drizzle';
+        else if (cond.includes('thunder')) key = 'thunderstorm';
+        else if (cond.includes('snow') || cond.includes('sleet')) key = 'snow';
+        else if (cond.includes('mist') || cond.includes('fog')) key = 'mist';
+
+        const lines = suggestions[key] || suggestions.default;
+
+        // If it's very cold or very hot, prepend a temp-specific sentence
+        let tempNote = '';
+        if (!Number.isNaN(t)) {
+            if (t <= 5) tempNote = 'It is quite cold; dress warmly.';
+            else if (t >= 30) tempNote = 'It is very hot; stay hydrated and avoid prolonged sun.';
+        }
+
+        // Join three sentences: temp note (if any) + two from the chosen list (or three if no temp note)
+        const chosen = tempNote ? [tempNote].concat(lines.slice(0, 2)) : lines.slice(0, 3);
+        return chosen.join(' ');
     }
 }
 
