@@ -29,18 +29,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// --- Menu actions ---
-document.getElementById('aboutUsLink').href = GITHUB_URL;
-
-const favoritesBtn = document.getElementById('favoritesBtn');
-const historyBtn = document.getElementById('historyBtn');
-const changeUserBtn = document.getElementById('changeUserBtn');
-
-const favoritesModal = document.getElementById('favoritesModal');
-const favoritesListEl = document.getElementById('favoritesList');
-const closeFavorites = document.getElementById('closeFavorites');
-
-
 
 // === Theme Toggle Functionality ===
 const themeToggle = document.getElementById('theme-toggle');
@@ -91,8 +79,60 @@ menuBtn.addEventListener('keydown', (e) => {
 // API KEY
 const apiKey = "2ba7dd79b4bde9f946abab213a551ac9";
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+const forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?units=metric&q=";
 const searchBox = document.querySelector(".nav-center input");
+const fiveDayListEl = document.getElementById('fiveDayList');
 
+async function checkFiveDayForecast(city) {
+    if (!city || !fiveDayListEl) return;
+
+    const response = await fetch(forecastUrl + city + `&appid=${apiKey}`);
+    
+    if (!response.ok) {
+        console.error("Error fetching 5-day forecast:", response.statusText);
+        fiveDayListEl.innerHTML = '<li>Could not load forecast.</li>';
+        return; 
+    }
+
+    const data = await response.json();
+    const forecastList = data.list;
+    const dailyForecasts = {};
+
+    forecastList.forEach(item => {
+        const date = item.dt_txt.split(' ')[0];
+        const tempMax = item.main.temp_max;
+        const dateTime = new Date(item.dt * 1000); 
+        const dayString = dateTime.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
+        const iconCode = item.weather[0].icon;
+
+        if (!dailyForecasts[date]) {
+            dailyForecasts[date] = { 
+                max: tempMax, 
+                icon: iconCode, 
+                day: dayString 
+            };
+        } else {
+            dailyForecasts[date].max = Math.max(dailyForecasts[date].max, tempMax);
+        }
+    });
+
+    fiveDayListEl.innerHTML = '';
+    const daysToShow = Object.keys(dailyForecasts).slice(1, 6); 
+    
+    daysToShow.forEach(dateKey => {
+        const dayData = dailyForecasts[dateKey];
+        const iconSrc = `https://openweathermap.org/img/wn/${dayData.icon}.png`; 
+        const maxTemp = Math.round(dayData.max);
+
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <img src="${iconSrc}" alt="${dayData.day}" class="li-icon">
+            <span class="li-temp">${maxTemp}°C</span>
+            <span class="li-date">${dayData.day}</span>
+        `;
+        fiveDayListEl.appendChild(listItem);
+    });
+}
 
 async function checkWeather(city) {
   const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
@@ -123,6 +163,7 @@ async function checkWeather(city) {
         hour: '2-digit' 
     });
     document.getElementById("sunset").innerHTML = sunsetTime;
+    checkFiveDayForecast(city);
 }
 
 
