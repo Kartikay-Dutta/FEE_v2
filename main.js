@@ -82,6 +82,29 @@ const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q="
 const forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?units=metric&q=";
 const searchBox = document.querySelector(".nav-center input");
 const fiveDayListEl = document.getElementById('fiveDayList');
+function getLocalIconPath(iconCode) {
+    const iconMap = {
+        '01d': 'sun.png', 
+        '01n': 'sun.png', 
+        '02d': 'cloudy.png',
+        '02n': 'cloud.png', 
+        '03d': 'cloud.png',
+        '03n': 'cloud.png',
+        '04d': 'cloud.png',
+        '04n': 'cloud.png',
+        '09d': 'rainy.png',
+        '09n': 'rainy.png',
+        '10d': 'rainy.png',
+        '10n': 'rainy.png',
+        '11d': 'rainy.png',
+        '11n': 'rainy.png',
+        '13d': 'rainy.png',
+        '13n': 'rainy.png',
+        '50d': 'rainy.png',
+        '50n': 'rainy.png'
+    };
+    return `images/${iconMap[iconCode] || 'default.png'}`; 
+}
 
 async function checkFiveDayForecast(city) {
     if (!city || !fiveDayListEl) return;
@@ -89,13 +112,14 @@ async function checkFiveDayForecast(city) {
     const response = await fetch(forecastUrl + city + `&appid=${apiKey}`);
     
     if (!response.ok) {
-        console.error("Error fetching 5-day forecast:", response.statusText);
+
         fiveDayListEl.innerHTML = '<li>Could not load forecast.</li>';
         return; 
     }
 
+
     const data = await response.json();
-    const forecastList = data.list;
+    const forecastList = data.list; 
     const dailyForecasts = {};
 
     forecastList.forEach(item => {
@@ -116,12 +140,14 @@ async function checkFiveDayForecast(city) {
         }
     });
 
-    fiveDayListEl.innerHTML = '';
+    fiveDayListEl.innerHTML = ''; 
     const daysToShow = Object.keys(dailyForecasts).slice(1, 6); 
     
     daysToShow.forEach(dateKey => {
         const dayData = dailyForecasts[dateKey];
-        const iconSrc = `https://openweathermap.org/img/wn/${dayData.icon}.png`; 
+        
+        const iconSrc = getLocalIconPath(dayData.icon); 
+        
         const maxTemp = Math.round(dayData.max);
 
         const listItem = document.createElement('li');
