@@ -159,6 +159,7 @@ async function checkFiveDayForecast(city) {
         fiveDayListEl.appendChild(listItem);
     });
 }
+// hourly function
 
 const hoursRowEl = document.getElementById('hoursRow');
 
@@ -177,7 +178,7 @@ async function checkHourlyForecast(city) {
 
     hoursRowEl.innerHTML = ''; 
 
-    for (let i = 0; i < Math.min(forecastList.length, 8); i++) {
+    for (let i = 0; i < Math.min(forecastList.length, 7); i++) {
         const item = forecastList[i];
         
         const dateTime = new Date(item.dt * 1000); 
