@@ -160,9 +160,54 @@ async function checkFiveDayForecast(city) {
     });
 }
 
+const hoursRowEl = document.getElementById('hoursRow');
+
+async function checkHourlyForecast(city) {
+    if (!city || !hoursRowEl) return;
+
+    const response = await fetch(forecastUrl + city + `&appid=${apiKey}`);
+    
+    if (!response.ok) {
+        hoursRowEl.innerHTML = '<div>Could not load hourly forecast.</div>';
+        return; 
+    }
+
+    const data = await response.json();
+    const forecastList = data.list; 
+
+    hoursRowEl.innerHTML = ''; 
+
+    for (let i = 0; i < Math.min(forecastList.length, 8); i++) {
+        const item = forecastList[i];
+        
+        const dateTime = new Date(item.dt * 1000); 
+        const timeString = dateTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+        
+        const temp = Math.round(item.main.temp);
+        const iconCode = item.weather[0].icon;
+        
+        const windSpeedKmh = Math.round(item.wind.speed * 3.6); 
+
+        const iconSrc = getLocalIconPath(iconCode); 
+
+        const hourPill = document.createElement('div');
+        hourPill.className = 'hour-pill';
+        
+        hourPill.innerHTML = `
+            <div class="pill-time">${timeString}</div>
+            <img src="${iconSrc}" alt="weather icon" class="pill-icon">
+            <div class="pill-temp">${temp}°C</div>
+            <img src="images/wind_speed.png" alt="wind icon" class="pill-icon">
+            <div class="pill-wind">${windSpeedKmh} km/h</div>
+        `;
+        hoursRowEl.appendChild(hourPill);
+    }
+}
+
 async function checkWeather(city) {
   const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
   var data = await response.json();
+  checkHourlyForecast(city);
   console.log(data);
   document.querySelector(".city").innerHTML = data.name;
   document.querySelector(".temp-val").innerHTML = Math.round(data.main.temp) + "°C";
@@ -190,6 +235,7 @@ async function checkWeather(city) {
     });
     document.getElementById("sunset").innerHTML = sunsetTime;
     checkFiveDayForecast(city);
+     checkHourlyForecast(city);
 }
 
 
