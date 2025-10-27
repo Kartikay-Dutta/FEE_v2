@@ -1,4 +1,6 @@
 let cityClockInterval;
+const favoriteIcon = document.getElementById('favoriteIcon');
+let favoritedCities = JSON.parse(localStorage.getItem('favoritedCities')) || [];
 
 // --- Config ---
 const GITHUB_URL = "https://github.com/Kartikay-Dutta/FEE_v2";
@@ -31,6 +33,48 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// --- Function to update the favorite icon for the current city ---
+function updateFavoriteIconState(cityName) {
+    if (!favoriteIcon) return; // Guard against element not existing
+
+    // Check if the current city is in the favoritedCities array
+    const isFavorited = favoritedCities.includes(cityName);
+
+    if (isFavorited) {
+        favoriteIcon.src = 'images/favorite_full.png';
+        favoriteIcon.alt = 'Remove from Favorites';
+    } else {
+        favoriteIcon.src = 'images/favorite_trans.png';
+        favoriteIcon.alt = 'Add to Favorites';
+    }
+}
+
+// --- Event listener for the favorite icon ---
+favoriteIcon.addEventListener('click', () => {
+    const currentCityName = document.getElementById('cityName').textContent;
+
+    // Guard against empty city name
+    if (!currentCityName) return;
+
+    const index = favoritedCities.indexOf(currentCityName);
+
+    if (index > -1) {
+        // City is already favorited, so remove it
+        favoritedCities.splice(index, 1);
+    } else {
+        // City is not favorited, so add it
+        favoritedCities.push(currentCityName);
+    }
+
+    // Save the updated list back to localStorage
+    localStorage.setItem('favoritedCities', JSON.stringify(favoritedCities));
+
+    // Update the icon to reflect the new state
+    updateFavoriteIconState(currentCityName);
+
+    // Optional: Log to console for debugging
+    console.log("Favorited cities:", favoritedCities);
+});
 
 // === Theme Toggle Functionality ===
 const themeToggle = document.getElementById('theme-toggle');
