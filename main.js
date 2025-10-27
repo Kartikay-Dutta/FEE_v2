@@ -1,3 +1,5 @@
+let cityClockInterval;
+
 // --- Config ---
 const GITHUB_URL = "https://github.com/Kartikay-Dutta/FEE_v2";
 
@@ -52,18 +54,7 @@ themeToggle.addEventListener('click', () => {
   }
 });
 
-// --- Simple clock & date sample to look live (updates every second) ---
-function updateClock() {
-  const now = new Date();
-  const hh = now.getHours().toString().padStart(2,'0');
-  const mm = now.getMinutes().toString().padStart(2,'0');
-  document.getElementById('clock').textContent = `${hh}:${mm}`;
 
-  const options = { weekday: 'long', day: 'numeric', month: 'short' };
-  document.getElementById('date').textContent = now.toLocaleDateString(undefined, options);
-}
-updateClock();
-setInterval(updateClock, 1000);
 
 // --- Accessibility: keyboard support for menu ---
 menuBtn.addEventListener('keydown', (e) => {
@@ -82,6 +73,31 @@ const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q="
 const forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?units=metric&q=";
 const searchBox = document.querySelector(".nav-center input");
 const fiveDayListEl = document.getElementById('fiveDayList');
+
+
+function updateCityClock(timezoneOffsetSeconds) {
+    if (cityClockInterval) {
+        clearInterval(cityClockInterval);
+    }
+
+    const tick = () => {
+        const now = new Date();
+        const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000); 
+
+        const cityTime = new Date(utcTime + (timezoneOffsetSeconds * 1000));
+
+        const hh = cityTime.getHours().toString().padStart(2, '0');
+        const mm = cityTime.getMinutes().toString().padStart(2, '0');
+        document.getElementById('clock').textContent = `${hh}:${mm}`;
+
+        const options = { weekday: 'long', day: 'numeric', month: 'short' };
+        document.getElementById('date').textContent = cityTime.toLocaleDateString(undefined, options);
+        
+    };
+
+    tick();
+    cityClockInterval = setInterval(tick, 1000);
+}
 function getLocalIconPath(iconCode) {
     const iconMap = {
         '01d': 'sun.png', 
@@ -205,6 +221,7 @@ async function checkHourlyForecast(city) {
     }
 }
 
+
 async function checkWeather(city) {
   const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
   var data = await response.json();
@@ -237,6 +254,7 @@ async function checkWeather(city) {
     document.getElementById("sunset").innerHTML = sunsetTime;
     checkFiveDayForecast(city);
      checkHourlyForecast(city);
+     updateCityClock(data.timezone);
 }
 
 
