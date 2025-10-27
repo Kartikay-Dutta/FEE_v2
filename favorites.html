@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherNow - My Favorites</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="favorites.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-left">
+            <a href="main.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h2 class="logo">My Favorite Cities</h2>
+        </div>
+
+        <div class="nav-right">
+            <div class="favorites-search">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="favoritesSearch" placeholder="Search favorites...">
+            </div>
+            <div class="favorites-filter">
+                <select id="favoritesSort">
+                    <option value="name">Name (A-Z)</option>
+                    <option value="temp">Temperature</option>
+                    <option value="recent">Recently Added</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="favorites-container">
+        <!-- Stats Summary -->
+        <section class="favorites-summary">
+            <div class="summary-card">
+                <i class="fas fa-star"></i>
+                <h3>Total Favorites</h3>
+                <p id="totalFavorites">0</p>
+            </div>
+            <div class="summary-card">
+                <i class="fas fa-temperature-high"></i>
+                <h3>Warmest City</h3>
+                <p id="warmestCity">--</p>
+            </div>
+            <div class="summary-card">
+                <i class="fas fa-temperature-low"></i>
+                <h3>Coldest City</h3>
+                <p id="coldestCity">--</p>
+            </div>
+            <div class="summary-card">
+                <i class="fas fa-clock"></i>
+                <h3>Last Updated</h3>
+                <p id="lastUpdated">--</p>
+            </div>
+        </section>
+
+        <!-- Favorites Grid -->
+        <section class="favorites-grid" id="favoritesGrid">
+            <!-- Favorites will be dynamically added here -->
+            <div class="empty-favorites">
+                <i class="fas fa-star empty-star"></i>
+                <p>No favorites yet</p>
+                <p class="empty-subtitle">Search for cities and star them to add to favorites</p>
+                <a href="main.html" class="add-favorites-btn">
+                    <i class="fas fa-plus"></i> Add Cities
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Refresh Confirmation Modal -->
+    <div id="refreshModal" class="modal">
+        <div class="modal-content">
+            <h3>Refresh Weather Data</h3>
+            <p>Would you like to update the weather data for all favorite cities?</p>
+            <div class="modal-actions">
+                <button id="cancelRefresh" class="btn btn-secondary">Cancel</button>
+                <button id="confirmRefresh" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> Update All
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button id="refreshFab" class="fab" title="Refresh weather data">
+        <i class="fas fa-sync-alt"></i>
+    </button>
+
+    <script src="weather.js"></script>
+    <script src="favorites.js"></script>
+</body>
+</html>

@@ -7,20 +7,34 @@
   <link rel="icon" type="image/x-icon" href="/images/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="additional-styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
+  <!-- Initial Search View -->
+  <div id="initialSearch" class="center-search">
+    <h1>WeatherNow</h1>
+    <div class="search-container">
+      <input type="text" id="mainSearchBar" class="main-search-bar" placeholder="Enter a city name...">
+      <button id="locationBtn" class="location-btn">
+        <i class="fas fa-location-dot"></i> Use My Location
+      </button>
+    </div>
+  </div>
+
   <!-- NAVBAR -->
-  <nav class="navbar" role="navigation" aria-label="Main navigation">
+  <nav class="navbar" role="navigation" aria-label="Main navigation" id="navbar" style="display: none;">
     <div class="nav-left">
       <button id="menuBtn" class="menu-btn" aria-haspopup="true" aria-expanded="false">☰</button>
 
       <!-- DROPDOWN -->
       <div id="menuDropdown" class="menu-dropdown" role="menu" aria-hidden="true">
-        <button class="menu-item" id="favoritesBtn" role="menuitem">★ Favorites</button>
-        <button class="menu-item" id="historyBtn" role="menuitem">🕘 History</button>
-        <button class="menu-item" id="changeUserBtn" role="menuitem">👤 Change user</button>
-        <a class="menu-item" id="aboutUsLink" role="menuitem" href="https://github.com/Kartikay-Dutta/FEE_v2" target="_blank" rel="noopener noreferrer">ℹ️ About Us</a>
+        <button class="menu-item" id="favoritesBtn" role="menuitem"><i class="fas fa-star"></i> Favorites</button>
+        <button class="menu-item" id="historyBtn" role="menuitem"><i class="fas fa-history"></i> History</button>
+        <button class="menu-item" id="alertsBtn" role="menuitem"><i class="fas fa-bell"></i> Weather Alerts</button>
+        <button class="menu-item" id="changeUserBtn" role="menuitem"><i class="fas fa-user"></i> Change user</button>
+        <a class="menu-item" id="aboutUsLink" role="menuitem" href="https://github.com/Kartikay-Dutta/FEE_v2" target="_blank" rel="noopener noreferrer"><i class="fas fa-info-circle"></i> About Us</a>
       </div>
 
       <h2 class="logo">WeatherNow</h2>
@@ -30,21 +44,27 @@
       <input type="text" placeholder="Search for your preferred city..." class="search-bar" id="searchBar" />
     </div>
 
-    <div><button id="theme-toggle" class="theme-btn">🌙 Dark Mode</button>
-</div>
+    <div class="nav-right">
+      <div class="unit-toggle">
+        <input type="radio" id="celsius" name="tempUnit" value="C" checked>
+        <label for="celsius">°C</label>
+        <input type="radio" id="fahrenheit" name="tempUnit" value="F">
+        <label for="fahrenheit">°F</label>
+      </div>
+      <button id="theme-toggle" class="theme-btn"><i class="fas fa-moon"></i></button>
+    </div>
   </nav>
 
   <!-- MAIN DASHBOARD -->
-  <main class="wrap" id="wrap">
+  <main class="wrap" id="wrap" style="display: none;">
 
     <!-- LEFT: City + Time (large) -->
     <section class="card city-time">
       <div class="city-inner" aria-live="polite">
         <img src="images/favorite_trans.png" alt="Add to Favorites" class="favorite-icon" id="favoriteIcon">
-        <h2 class="city" id="cityName">Athens</h2>
-        <div class="clock" id="clock">09:03</div>
-        <div class="date" id="date">Thursday, 31 Aug</div>
-        
+        <h2 class="city" id="cityName">Loading...</h2>
+        <div class="clock" id="clock">--:--</div>
+        <div class="date" id="date">Loading...</div>
       </div>
     </section>
 
@@ -53,22 +73,22 @@
   <!-- LEFT: big temp + feels + vertical sunrise/sunset -->
   <div class="weather-left">
     <div class="temp-big">
-      <div class="temp-val"><span id="tempVal">24</span><span class="deg">°C</span></div>
-      <div class="feels">Feels like: <strong id="feelsLike">22°C</strong></div>
+      <div class="temp-val"><span id="tempVal">--</span><span class="deg">°C</span></div>
+      <div class="feels">Feels like: <strong id="feelsLike">--°C</strong></div>
 
       <div class="sun-times">
         <div class="sun-line">
           <img src="images/sunrise.png" alt="sunrise" class="stat-icon">
           <div class="sun-text">
             <div class="small-label">Sunrise</div>
-            <div class="small-val" id="sunrise">06:37</div>
+            <div class="small-val" id="sunrise">--:--</div>
           </div>
         </div>
         <div class="sun-line">
           <img src="images/sunset.png" alt="sunset" class="stat-icon">
           <div class="sun-text">
             <div class="small-label">Sunset</div>
-            <div class="small-val" id="sunset">20:37</div>
+            <div class="small-val" id="sunset">--:--</div>
           </div>
         </div>
       </div>
@@ -77,8 +97,8 @@
 
   <!-- CENTER: big icon + label -->
   <div class="weather-center">
-    <img src="images/sun.png" alt="sun" class="big-icon" id="bigIcon">
-    <div class="condition" id="condition">Sunny</div>
+    <img src="images/cloudy.png" alt="weather condition" class="big-icon" id="bigIcon">
+    <div class="condition" id="condition">Loading...</div>
   </div>
 
   <!-- RIGHT: vertical stats (icon + label + value) -->
@@ -87,7 +107,7 @@
       <img src="images/humidity.png" alt="humidity" class="stat-icon">
       <div class="stat-text">
         <div class="small-label">Humidity</div>
-        <div class="small-val" id="humidity">41%</div>
+        <div class="small-val" id="humidity">--%</div>
       </div>
     </div>
 
@@ -95,7 +115,7 @@
       <img src="images/wind.png" alt="wind" class="stat-icon">
       <div class="stat-text">
         <div class="small-label">Wind Speed</div>
-        <div class="small-val" id="wind">2 km/h</div>
+        <div class="small-val" id="wind">-- km/h</div>
       </div>
     </div>
 
@@ -103,7 +123,7 @@
       <img src="images/pressure.png" alt="pressure" class="stat-icon">
       <div class="stat-text">
         <div class="small-label">Pressure</div>
-        <div class="small-val" id="pressure">997 hPa</div>
+        <div class="small-val" id="pressure">---- hPa</div>
       </div>
     </div>
 
@@ -111,7 +131,7 @@
       <img src="images/visible.png" alt="visibility" class="stat-icon">
       <div class="stat-text">
         <div class="small-label">Visibility</div>
-        <div class="small-val" id="visibility">8 Km</div>
+        <div class="small-val" id="visibility">-- Km</div>
       </div>
     </div>
   </div>
@@ -121,11 +141,7 @@
     <section class="card forecast-5days">
       <h3>5 Days Forecast</h3>
       <ul id="fiveDayList" aria-live="polite">
-        <li><img src="images/sun.png" alt="" class="li-icon"> <span class="li-temp">20°C</span> <span class="li-date">Fri, 1 Sep</span></li>
-        <li><img src="images/cloudy.png" alt="" class="li-icon"> <span class="li-temp">22°C</span> <span class="li-date">Sat, 2 Sep</span></li>
-        <li><img src="images/sun.png" alt="" class="li-icon"> <span class="li-temp">27°C</span> <span class="li-date">Sun, 3 Sep</span></li>
-        <li><img src="images/rainy.png" alt="" class="li-icon"> <span class="li-temp">18°C</span> <span class="li-date">Mon, 4 Sep</span></li>
-        <li><img src="images/cloud.png" alt="" class="li-icon"> <span class="li-temp">16°C</span> <span class="li-date">Tue, 5 Sep</span></li>
+        <li class="loading-placeholder">Loading forecast data...</li>
       </ul>
     </section>
 
@@ -133,61 +149,74 @@
     <section class="card forecast-hourly">
       <h3>Hourly Forecast</h3>
       <div class="hours" id="hoursRow" aria-live="polite">
-        <div class="hour-pill">
-          <div class="pill-time">12:00</div>
-          <img src="images/sun.png" alt="" class="pill-icon">
-          <div class="pill-temp">26°C</div>
-          <img src="images/wind_speed.png" alt="" class="pill-icon">
-          <div class="pill-wind">3 km/h</div>
-        </div>
-
-        <div class="hour-pill">
-          <div class="pill-time">15:00</div>
-          <img src="images/sun.png" alt="" class="pill-icon">
-          <div class="pill-temp">27°C</div>
-          <img src="images/wind_speed.png" alt="" class="pill-icon">
-          <div class="pill-wind">2 km/h</div>
-        </div>
-
-        <div class="hour-pill">
-          <div class="pill-time">18:00</div>
-          <img src="images/cloudy.png" alt="" class="pill-icon">
-          <div class="pill-temp">27°C</div>
-          <img src="images/wind_speed.png" alt="" class="pill-icon">
-          <div class="pill-wind">2 km/h</div>
-        </div>
-
-        <div class="hour-pill">
-          <div class="pill-time">21:00</div>
-          <img src="images/cloud.png" alt="" class="pill-icon">
-          <div class="pill-temp">25°C</div>
-          <img src="images/wind_speed.png" alt="" class="pill-icon">
-          <div class="pill-wind">3 km/h</div>
-        </div>
-
-        <div class="hour-pill">
-          <div class="pill-time">00:00</div>
-          <img src="images/moon.png" alt="" class="pill-icon">
-          <div class="pill-temp">22°C</div>
-          <img src="images/wind_speed.png" alt="" class="pill-icon">
-          <div class="pill-wind">3 km/h</div>
-        </div>
+        <div class="loading-placeholder">Loading hourly forecast...</div>
       </div>
     </section>
 
   </main>
 
-  <!-- FAVORITES MODAL (simple) -->
+  <!-- FAVORITES MODAL -->
   <div id="favoritesModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="favoritesTitle">
     <div class="modal-content">
-      <h3 id="favoritesTitle">Favorites</h3>
-      <div id="favoritesList">No favorites yet. Use the search to add cities.</div>
-      <div class="modal-actions">
-        <button id="closeFavorites" class="btn">Close</button>
+      <button class="close-modal" id="closeFavorites"><i class="fas fa-times"></i></button>
+      <h3 id="favoritesTitle">Favorite Cities</h3>
+      <div class="favorites-container">
+        <div class="favorites-header">
+          <div class="favorites-search">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="favoritesSearch" placeholder="Search your favorites...">
+          </div>
+          <div class="favorites-sort">
+            <select id="favoritesSort">
+              <option value="name">Name (A-Z)</option>
+              <option value="temp">Temperature</option>
+              <option value="recent">Recently Added</option>
+            </select>
+          </div>
+        </div>
+        <div id="favoritesList" class="favorites-grid">
+          <!-- Favorites will be dynamically added here -->
+          <div class="empty-favorites">
+            <i class="fas fa-star empty-star"></i>
+            <p>No favorites yet</p>
+            <p class="empty-subtitle">Search for cities and star them to add to favorites</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- ALERTS MODAL -->
+  <div id="alertsModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="alertsTitle">
+    <div class="modal-content">
+      <button class="close-modal" id="closeAlerts"><i class="fas fa-times"></i></button>
+      <h3 id="alertsTitle">Weather Alert Settings</h3>
+      <div class="alert-settings">
+        <div class="alert-option">
+          <input type="checkbox" id="rainAlert" name="rainAlert">
+          <label for="rainAlert">Rain Alerts</label>
+        </div>
+        <div class="alert-option">
+          <input type="checkbox" id="tempAlert" name="tempAlert">
+          <label for="tempAlert">Temperature Alerts</label>
+          <div class="temp-thresholds">
+            <input type="number" id="minTemp" placeholder="Min °C">
+            <input type="number" id="maxTemp" placeholder="Max °C">
+          </div>
+        </div>
+        <div class="alert-option">
+          <input type="checkbox" id="windAlert" name="windAlert">
+          <label for="windAlert">High Wind Alerts</label>
+          <input type="number" id="windSpeed" placeholder="Wind speed (km/h)">
+        </div>
+        <button id="saveAlerts" class="btn">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="weather.js"></script>
+  <script src="additional-features.js"></script>
+  <script src="favorites.js"></script>
   <script src="main.js"></script>
   
 </body>
