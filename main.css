@@ -270,7 +270,7 @@ body.light-mode .search-bar:focus {
 .card{
 	background: linear-gradient(145deg, #2c2c2c, #1f1f1f);
 	border-radius: 15px;
-	padding: 22px;
+	padding: 5px;
 	box-shadow: 6px 6px 12px rgba(0,0,0,0.3), -4px -4px 8px rgba(255,255,255,0.05);
 }
 /* CITY CLOCK (LEFT) */
@@ -776,7 +776,7 @@ body.light-mode .forecast-5days li {
 
 .city-inner .favorite-icon {
     position: absolute;
-    top: 12px;
+    top: 0px;
     right: 12px;
     transform: none;
     margin: 0;
