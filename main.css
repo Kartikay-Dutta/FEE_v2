@@ -798,6 +798,42 @@ body.light-mode .navbar {
 	color: #111;
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 	border: 1px solid rgba(0, 0, 0, 0.05);
+	}
+
+/* Favorite button (star) in the main city card */
+.favorite-btn {
+	position: absolute;
+	top: 18px;
+	right: 22px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 6px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 30;
+}
+.favorite-btn i {
+	font-size: 24px;
+	color: rgba(255,255,255,0.85);
+	transition: transform 0.14s ease, color 0.14s ease, text-shadow 0.14s ease;
+	text-shadow: 0 3px 8px rgba(0,0,0,0.45);
+}
+.favorite-btn:hover i { transform: scale(1.06); }
+.favorite-btn.active i,
+.favorite-btn[aria-pressed="true"] i {
+	color: #ffcc00; /* warm yellow */
+	text-shadow: 0 6px 12px rgba(0,0,0,0.45);
+	transform: scale(1.08);
+}
+
+/* Visually hidden helper for accessibility */
+.visually-hidden {
+	position: absolute !important;
+	height: 1px; width: 1px;
+	overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+	white-space: nowrap;
 }
 
 body.light-mode .navbar h1,body.light-mode .navbar a,body.light-mode .navbar span {

@@ -2,6 +2,8 @@
 class FavoritesManager {
     constructor() {
         this.favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        // normalize any stored favorites so comparisons are consistent
+        this.favorites = this.favorites.map(f => ({ ...f, name: this.normalizeName(f.name) }));
         this.isDedicatedPage = window.location.pathname.includes('favorites.html');
         
         // Initialize UI elements
@@ -10,6 +12,13 @@ class FavoritesManager {
         
         // Initial render
         this.isDedicatedPage ? this.renderFavoritesPage() : this.renderFavoritesModal();
+        // Ensure the favorite icon on the main view reflects stored state
+        try {
+            const currentCity = document.getElementById('cityName')?.textContent || '';
+            if (currentCity) this.updateFavoriteIcon(this.normalizeName(currentCity));
+        } catch (e) {
+            // ignore when elements are not present
+        }
     }
 
     initializeElements() {
@@ -45,27 +54,47 @@ class FavoritesManager {
             // Modal event listeners
             this.closeFavorites.addEventListener('click', () => this.hideModal());
             
-            // Star button in the main weather view
-            const favoriteIcon = document.querySelector('.favorite-icon');
-            if (favoriteIcon) {
-                favoriteIcon.addEventListener('click', (e) => {
+            // Star button in the main weather view (now a button with an <i> icon)
+            const favoriteBtn = document.getElementById('favoriteIcon');
+            if (favoriteBtn) {
+                favoriteBtn.addEventListener('click', (e) => {
                     const cityName = document.getElementById('cityName').textContent;
                     const currentTemp = document.getElementById('tempVal').textContent;
                     const condition = document.getElementById('condition').textContent;
                     
-                    if (this.isFavorite(cityName)) {
-                        this.removeFavorite(cityName);
-                        e.target.classList.remove('active');
+                    // normalize the city name before checking/storing
+                    const normalized = this.normalizeName(cityName);
+                    const icon = favoriteBtn.querySelector('i');
+
+                    if (this.isFavorite(normalized)) {
+                        this.removeFavorite(normalized);
+                        if (icon) { icon.classList.remove('fas'); icon.classList.add('far'); }
+                        favoriteBtn.setAttribute('aria-pressed', 'false');
+                        favoriteBtn.classList.remove('active');
                     } else {
                         this.addFavorite({
-                            name: cityName,
+                            name: normalized,
                             temp: currentTemp,
                             condition: condition,
                             timestamp: new Date().toISOString()
                         });
-                        e.target.classList.add('active');
+                        if (icon) { icon.classList.remove('far'); icon.classList.add('fas'); }
+                        favoriteBtn.setAttribute('aria-pressed', 'true');
+                        favoriteBtn.classList.add('active');
                     }
+                    // keep icon in sync with stored favorites
+                    this.updateFavoriteIcon(normalized);
                 });
+            }
+
+            // Keep the favorite icon in sync when the displayed city changes
+            const cityEl = document.getElementById('cityName');
+            if (cityEl) {
+                const mo = new MutationObserver(() => {
+                    const name = this.normalizeName(cityEl.textContent || '');
+                    if (name) this.updateFavoriteIcon(name);
+                });
+                mo.observe(cityEl, { characterData: true, childList: true, subtree: true });
             }
         }
     }
@@ -80,8 +109,10 @@ class FavoritesManager {
     }
 
     addFavorite(city) {
-        if (!this.isFavorite(city.name)) {
-            this.favorites.push(city);
+        const name = this.normalizeName(city.name);
+        if (!this.isFavorite(name)) {
+            const toStore = { ...city, name };
+            this.favorites.push(toStore);
             this.saveFavorites();
             this.isDedicatedPage ? this.renderFavoritesPage() : this.renderFavoritesModal();
             this.showToast(`Added ${city.name} to favorites`);
@@ -89,14 +120,21 @@ class FavoritesManager {
     }
 
     removeFavorite(cityName) {
-        this.favorites = this.favorites.filter(city => city.name !== cityName);
+        const name = this.normalizeName(cityName);
+        this.favorites = this.favorites.filter(city => this.normalizeName(city.name) !== name);
         this.saveFavorites();
         this.isDedicatedPage ? this.renderFavoritesPage() : this.renderFavoritesModal();
         this.showToast(`Removed ${cityName} from favorites`);
     }
 
     isFavorite(cityName) {
-        return this.favorites.some(city => city.name === cityName);
+        const name = this.normalizeName(cityName);
+        return this.favorites.some(city => this.normalizeName(city.name) === name);
+    }
+
+    normalizeName(name) {
+        if (!name) return '';
+        return String(name).trim().toLowerCase();
     }
 
     saveFavorites() {
@@ -279,12 +317,17 @@ class FavoritesManager {
     }
 
     updateFavoriteIcon(cityName) {
-        const favoriteIcon = document.querySelector('.favorite-icon');
-        if (favoriteIcon) {
+        const favoriteBtn = document.getElementById('favoriteIcon');
+        if (favoriteBtn) {
+            const icon = favoriteBtn.querySelector('i');
             if (this.isFavorite(cityName)) {
-                favoriteIcon.classList.add('active');
+                if (icon) { icon.classList.remove('far'); icon.classList.add('fas'); }
+                favoriteBtn.setAttribute('aria-pressed', 'true');
+                favoriteBtn.classList.add('active');
             } else {
-                favoriteIcon.classList.remove('active');
+                if (icon) { icon.classList.remove('fas'); icon.classList.add('far'); }
+                favoriteBtn.setAttribute('aria-pressed', 'false');
+                favoriteBtn.classList.remove('active');
             }
         }
     }

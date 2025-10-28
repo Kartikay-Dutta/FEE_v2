@@ -60,8 +60,12 @@
 
     <!-- LEFT: City + Time (large) -->
     <section class="card city-time">
-      <div class="city-inner" aria-live="polite">
-        <img src="images/favorite_trans.png" alt="Add to Favorites" class="favorite-icon" id="favoriteIcon">
+        <div class="city-inner" aria-live="polite">
+        <!-- Favorite button: uses Font Awesome so color can be controlled via CSS -->
+        <button id="favoriteIcon" class="favorite-btn" aria-pressed="false" title="Toggle favorite">
+          <i class="far fa-star" aria-hidden="true"></i>
+          <span class="visually-hidden">Toggle favorite</span>
+        </button>
         <h2 class="city" id="cityName">Loading...</h2>
         <div class="clock" id="clock">--:--</div>
         <div class="date" id="date">Loading...</div>
