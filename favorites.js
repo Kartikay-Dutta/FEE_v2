@@ -343,3 +343,38 @@ if (favoritesBtn) {
         window.location.href = 'favorites.html';
     });
 }
+
+// Global helper used by the favorites "View" button in the favorites grid.
+// If we're already on the main page, load the city directly. Otherwise,
+// navigate to main.html with a `city` query parameter so the main page can
+// load the requested city after navigation.
+function loadWeatherData(cityName) {
+    if (!cityName) return;
+    const cityParam = encodeURIComponent(cityName);
+
+    // If weatherManager and main page elements exist, load directly
+    try {
+        if (window.weatherManager && document.getElementById('cityName')) {
+            // show dashboard UI if hidden (mirrors search behavior)
+            try { document.getElementById('initialSearch').style.display = 'none'; } catch (e) {}
+            try { document.getElementById('navbar').style.display = 'flex'; } catch (e) {}
+            try { document.getElementById('wrap').style.display = 'grid'; } catch (e) {}
+
+            // fetch and update UI
+            window.weatherManager.getWeatherByCity(cityName)
+                .then(data => {
+                    window.weatherManager.updateUI(data);
+                    // keep the navbar search in sync
+                    const sb = document.getElementById('searchBar') || document.getElementById('mainSearchBar');
+                    if (sb) sb.value = cityName;
+                })
+                .catch(err => console.error('Error loading city from favorites:', err));
+            return;
+        }
+    } catch (e) {
+        // fallthrough to redirect
+    }
+
+    // Default: navigate to main and include city query param
+    window.location.href = `main.html?city=${cityParam}`;
+}

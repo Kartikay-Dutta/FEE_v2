@@ -399,3 +399,37 @@ document.getElementById('searchBar').addEventListener('keypress', async (e) => {
         }
     }
 });
+
+// If the page was opened with a `city` query parameter (for example, from favorites.html),
+// load that city's weather immediately and ensure the dashboard is visible.
+(function loadCityFromQuery() {
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const city = params.get('city');
+        if (city && city.trim()) {
+            (async () => {
+                try {
+                    document.querySelectorAll('.card').forEach(card => card.classList.add('loading'));
+                    const data = await weatherManager.getWeatherByCity(city.trim());
+                    weatherManager.updateUI(data);
+
+                    // Show the main UI (mirrors search and location flows)
+                    const initial = document.getElementById('initialSearch');
+                    const navbar = document.getElementById('navbar');
+                    const wrap = document.getElementById('wrap');
+                    if (initial) initial.style.display = 'none';
+                    if (navbar) navbar.style.display = 'flex';
+                    if (wrap) wrap.style.display = 'grid';
+
+                    // Keep the navbar search in sync
+                    const sb = document.getElementById('searchBar') || document.getElementById('mainSearchBar');
+                    if (sb) sb.value = city.trim();
+                } catch (err) {
+                    console.error('Could not load city from query param:', err);
+                }
+            })();
+        }
+    } catch (e) {
+        console.warn('Error parsing city query param', e);
+    }
+})();
