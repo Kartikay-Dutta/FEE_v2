@@ -1,3 +1,11 @@
+// --- Dropdown: open history page on click ---
+const historyBtn = document.getElementById('historyBtn');
+if (historyBtn) {
+    historyBtn.addEventListener('click', () => {
+        window.location.href = 'history.html';
+        closeMenu();
+    });
+}
 let cityClockInterval;
 const favoriteIcon = document.getElementById('favoriteIcon');
 let favoritedCities = JSON.parse(localStorage.getItem('favoritedCities')) || [];
@@ -264,5 +272,3 @@ async function checkHourlyForecast(city) {
         hoursRowEl.appendChild(hourPill);
     }
 }
-
-

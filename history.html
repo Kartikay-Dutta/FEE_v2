@@ -1,0 +1,73 @@
+
+</html>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="history.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-left">
+            <a href="main.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h2 class="logo">My Search History</h2>
+        </div>
+        <div class="nav-right">
+            <div class="favorites-search">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="historySearch" placeholder="Search history...">
+            </div>
+            <div class="favorites-filter">
+                <select id="historySort">
+                    <option value="recent">Recently Searched</option>
+                    <option value="name">Name (A-Z)</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+    <!-- MAIN CONTENT -->
+    <main class="favorites-container">
+        <!-- Stats Summary -->
+        <section class="favorites-summary">
+            <div class="summary-card">
+                <i class="fas fa-history"></i>
+                <h3>Total Searches</h3>
+                <p id="totalHistory">0</p>
+            </div>
+            <div class="summary-card">
+                <i class="fas fa-temperature-high"></i>
+                <h3>Warmest City</h3>
+                <p id="warmestHistoryCity">--</p>
+            </div>
+            <div class="summary-card">
+                <i class="fas fa-temperature-low"></i>
+                <h3>Coldest City</h3>
+                <p id="coldestHistoryCity">--</p>
+            </div>
+            <div class="summary-card">
+                <i class="fas fa-clock"></i>
+                <h3>Last Searched</h3>
+                <p id="lastSearched">--</p>
+            </div>
+        </section>
+        <!-- History Grid -->
+        <section class="favorites-grid" id="historyGrid">
+            <!-- History will be dynamically added here -->
+            <div class="empty-favorites">
+                <i class="fas fa-history empty-star"></i>
+                <p>No history yet</p>
+                <p class="empty-subtitle">Search for cities to see your history here</p>
+                <a href="main.html" class="add-favorites-btn">
+                    <i class="fas fa-plus"></i> Search Cities
+                </a>
+            </div>
+        </section>
+    </main>
+    <!-- Floating Action Button for clearing history -->
+    <button id="clearHistoryFab" class="fab" title="Clear search history">
+        <i class="fas fa-trash-alt"></i>
+    </button>
+    <script src="weather.js"></script>
+    <script src="history.js"></script>
+</body>
+</html>

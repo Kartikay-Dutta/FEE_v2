@@ -68,16 +68,18 @@ body {
 	left:48px;
 	top:46px;
 	min-width:180px;
-	background: linear-gradient(180deg, rgba(0,0,0,0.48), rgba(255,255,255,0.02));
-	border-radius:12px;
-	padding:8px;
-	box-shadow: 0 18px 40px rgba(0,0,0,0.5);
-	display:none;
+	background: rgba(40, 40, 40, 0.98);
+	border-radius: 14px;
+	padding: 10px 0 10px 0;
+	box-shadow: 0 8px 32px 0 rgba(0,0,0,0.25), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+	border: 1.5px solid rgba(255,255,255,0.08);
+	display: none;
 	transform-origin: top left;
+	transition: box-shadow 0.18s, background 0.18s;
 }
 .menu-dropdown.show{
-	display:block;
-	animation: pop .12s ease-out;
+	display: block;
+	animation: pop .16s cubic-bezier(.4,1.4,.6,1);
 }
 @keyframes pop {
 	from{
@@ -93,15 +95,36 @@ body {
 	background: transparent;
 	border: none;
 	color: #fff;
-	text-align:left;
-	padding:10px 12px;
-	width:100%;
-	border-radius:8px;
-	cursor:pointer;
-	font-weight:500;
+	text-align: left;
+	padding: 10px 18px 10px 44px;
+	width: 100%;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 500;
+	font-size: 16px;
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	transition: background 0.15s, color 0.15s;
 }
+	.menu-item .menu-icon {
+		position: absolute;
+		left: 16px;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 20px;
+		height: 20px;
+		display: inline-block;
+		/* Placeholder for SVG icon, user will add SVGs later */
+		background: none;
+		color: var(--icon-color, #fff);
+		opacity: 0.85;
+	}
 .menu-item:hover{
-	background: rgba(255,255,255,0.03);
+	background: rgba(255,255,255,0.08);
+	color: #fff;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.10);
 }
 /* Search */
 .nav-center {
