@@ -344,6 +344,15 @@ if (favoritesBtn) {
     });
 }
 
+// Change user in the dropdown should navigate to the signin page
+const changeUserBtn = document.getElementById('changeUserBtn');
+if (changeUserBtn) {
+    changeUserBtn.addEventListener('click', () => {
+        // Navigate to the sign-in page
+        window.location.href = 'signin_page.html';
+    });
+}
+
 // Global helper used by the favorites "View" button in the favorites grid.
 // If we're already on the main page, load the city directly. Otherwise,
 // navigate to main.html with a `city` query parameter so the main page can
