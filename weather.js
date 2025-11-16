@@ -20,6 +20,8 @@ class WeatherDataManager {
 
             // Format and combine the data
             const formattedWeather = this.formatWeatherData(weatherData);
+            updateBackgroundVideo(formattedWeather.condition);
+
             this.updateForecasts(forecastData);
             return formattedWeather;
         } catch (error) {
@@ -43,6 +45,8 @@ class WeatherDataManager {
 
             // Format and combine the data
             const formattedWeather = this.formatWeatherData(weatherData);
+            updateBackgroundVideo(formattedWeather.condition);
+
             this.updateForecasts(forecastData);
             return formattedWeather;
         } catch (error) {

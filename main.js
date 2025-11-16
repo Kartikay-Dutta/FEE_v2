@@ -225,6 +225,9 @@ async function checkFiveDayForecast(city) {
             <span class="li-date">${dayData.day}</span>
         `;
         fiveDayListEl.appendChild(listItem);
+
+
+
     });
 }
 // hourly function
@@ -270,5 +273,23 @@ async function checkHourlyForecast(city) {
             <div class="pill-wind">${windSpeedKmh} km/h</div>
         `;
         hoursRowEl.appendChild(hourPill);
+    }
+}
+function updateBackgroundVideo(weatherMain) {
+    const bgVideo = document.getElementById('bgVideo');
+    if (!bgVideo) return;
+
+    let videoFile = "";
+
+    if (weatherMain.includes("Clear")) videoFile = "sunny.mp4";
+    else if (weatherMain.includes("Cloud")) videoFile = "cloudy.mp4";
+    else if (weatherMain.includes("Rain") || weatherMain.includes("Drizzle")) videoFile = "rainy.mp4";
+    else if (weatherMain.includes("Thunderstorm")) videoFile = "rainy.mp4";
+    else if (weatherMain.includes("Snow")) videoFile = "rainy.mp4";
+
+    // Update video if a match was found
+    if (videoFile) {
+        bgVideo.querySelector("source").src = `images/${videoFile}`;
+        bgVideo.load();
     }
 }
